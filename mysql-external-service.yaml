@@ -5,7 +5,6 @@ metadata:
   namespace: dev
 spec:
   type: ExternalName
-#  externalName: host.minikube.internal
   externalName: fullstack-db.c9tlsge0boez.us-east-1.rds.amazonaws.com
   ports:
     - name: port

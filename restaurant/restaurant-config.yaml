@@ -8,6 +8,7 @@ data:
   CUSTOMERS_GET_BY_NAME: /getCustomerByFirstName
   CUSTOMERS_EXISTS: /customerExists
   CUSTOMERS_SEAT: /insertCustomer
+  CUSTOMERS_BOOT: /bootCustomer
   ORDERS_SUBMIT: /insertOrder
   TABLES_GET_ALL: /getAllTables
   CUSTOMERS_SERVICE_PACKAGE_NAME: CustomersService
