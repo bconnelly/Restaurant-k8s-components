@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: customers-deployment
-  namespace: dev
+  namespace: placeholder
   labels:
     app: customers
 spec:
@@ -48,7 +48,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: customers-service
-  namespace: dev
+  namespace: placeholder
   labels:
     app: customers
 spec:

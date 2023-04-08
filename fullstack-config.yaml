@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: fullstack-config
-  namespace: dev
+  namespace: placeholder
 data:
   JDBC_DATASOURCE_CUSTOMERS: jdbc:mysql://mysql-external-service/customers
   JDBC_DATASOURCE_ORDERS: jdbc:mysql://mysql-external-service/orders

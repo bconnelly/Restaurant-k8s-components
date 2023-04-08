@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: restaurant-config
-  namespace: dev
+  namespace: placeholder
 data:
   CUSTOMERS_GET_ALL: /getAllCustomers
   CUSTOMERS_GET_BY_NAME: /getCustomerByFirstName
