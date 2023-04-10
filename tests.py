@@ -7,7 +7,7 @@ LOAD_BALANCER=os.environ.get("RC_LB")
 SERVICE_PATH="RestaurantService"
 CUSTOMER_NAME=random.randint(0,10000)
 
-print(CUSTOMER_NAME)
+print("Test customer name: " + CUSTOMER_NAME)
 
 retryCount = 3
 for i in range(retryCount):
