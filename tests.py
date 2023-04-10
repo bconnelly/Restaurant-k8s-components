@@ -3,11 +3,11 @@ import json
 import random
 import os
 
-LOAD_BALANCER=os.environ.get("RC_LB")
-SERVICE_PATH="RestaurantService"
-CUSTOMER_NAME=random.randint(0,10000)
+LOAD_BALANCER = os.environ.get("RC_LB")
+SERVICE_PATH = "RestaurantService"
+CUSTOMER_NAME = random.randint(0,10000)
 
-print("Test customer name: " + CUSTOMER_NAME)
+print("Test customer name: " + str(CUSTOMER_NAME))
 
 retryCount = 3
 for i in range(retryCount):
@@ -16,7 +16,7 @@ for i in range(retryCount):
     print("response: " + str(response.status_code))
     if response.status_code == 200: break
     # if this was the last try and we didn't get a 200, fail
-    if retryCount == 2: exit(1)
+    if retryCount == 2: sys.exit(1)
 
 for i in range(retryCount):
     print("Pinging /getOpenTables...")
@@ -24,7 +24,7 @@ for i in range(retryCount):
     print("response: " + str(response.status_code))
     if response.status_code == 200: break
     # if this was the last try and we didn't get a 200, fail
-    if retryCount == 2: exit(1)
+    if retryCount == 2: sys.exit(1)
 
 for i in range(retryCount):
     print("Pinging /submitOrder...")
@@ -32,7 +32,7 @@ for i in range(retryCount):
     print("response: " + str(response.status_code))
     if response.status_code == 200: break
     # if this was the last try and we didn't get a 200, fail
-    if retryCount == 2: exit(1)
+    if retryCount == 2: sys.exit(1)
 
 for i in range(retryCount):
     print("Pinging /bootCustomer...")
@@ -40,4 +40,4 @@ for i in range(retryCount):
     print("response: " + str(response.status_code))
     if response.status_code == 200: break
     # if this was the last try and we didn't get a 200, fail
-    if retryCount == 2: exit(1)
+    if retryCount == 2: sys.exit(1)
