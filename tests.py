@@ -2,6 +2,7 @@ import requests
 import json
 import random
 import os
+import sys
 
 # LOAD_BALANCER = os.environ.get("RC_LB")
 LOAD_BALANCER = sys.argv[1]
