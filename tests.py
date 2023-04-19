@@ -4,7 +4,6 @@ import random
 import os
 import sys
 
-# LOAD_BALANCER = os.environ.get("RC_LB")
 LOAD_BALANCER = sys.argv[1]
 SERVICE_PATH = "RestaurantService"
 CUSTOMER_NAME = random.randint(0,10000)
