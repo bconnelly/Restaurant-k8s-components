@@ -77,7 +77,7 @@ SUBMIT_ORDER_MISSING_PARAM_FAILS=0
 for value in 1 2 3
 do
   echo "Pinging /submitOrder with missing param, should return 400..."
-  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg")
+  response=$(curl -X POST -s -w -iv --raw "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg")
   echo $response
   if [ $response -eq 400 ]; then break; else SUBMIT_ORDER_MISSING_PARAM_FAILS=$((SUBMIT_ORDER_MISSING_PARAM_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
