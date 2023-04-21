@@ -10,7 +10,7 @@ do
   TEST_VAL=$((TEST_VAL+1))
   echo "Pinging /seatCustomer with valid request, should return 200..."
   response=$(curl -X POST -s --header "Content-Type: text/plain" --data "body-is-ignored" "http://$LOAD_BALANCER/RestaurantService/seatCustomer?firstName=$CUSTOMER_NAME&address=mainst&cash=1.23")
-  echo "Response: $response"
+  echo "$response"
 #  if [ $response -eq 200 ]; then break; else SEAT_CUSTOMER_VALID_FAILS=$((SEAT_CUSTOMER_VALID_FAILS+1)); fi
 #  if [ $value -eq 3 ]; then exit 1; fi
 done
@@ -21,7 +21,7 @@ for value in 1 2 3
 do
   echo "Pinging /seatCustomer with missing param, should return 400..."
   response=$(curl -X POST -s --header "Content-Type: text/plain" --data "body-is-ignored" "http://$LOAD_BALANCER/RestaurantService/seatCustomer?firstName=$CUSTOMER_NAME&address=mainst")
-  echo "Response: $response"
+  echo "$response"
 #  if [ $response -eq 400 ]; then break; else SEAT_CUSTOMER_MISSING_PARAM_FAILS=$((SEAT_CUSTOMER_MISSING_PARAM_FAILS+1)); fi
 #  if [ $value -eq 3 ]; then exit 1; fi
 done
@@ -32,7 +32,7 @@ for value in 1 2 3
 do
   echo "Pinging /seatCustomer with invalid param, should return 400..."
   response=$(curl -X POST -s --header "Content-Type: text/plain" --data "body-is-ignored" "http://$LOAD_BALANCER/RestaurantService/seatCustomer?firstName=$CUSTOMER_NAME&address=mainst&cash=bad-value")
-  echo "Response: $response"
+  echo "$response"
 #  if [ $response -eq 400 ]; then break; else SEAT_CUSTOMER_INVALID_PARAM_FAILS=$((SEAT_CUSTOMER_INVALID_PARAM_FAILS+1)); fi
 #  if [ $value -eq 3 ]; then exit 1; fi
 done
@@ -44,7 +44,7 @@ for value in 1 2 3
 do
   echo "Pinging /getOpenTables..."
   response=$(curl -s --header "Content-Type: text/plain" "http://$LOAD_BALANCER/RestaurantService/getOpenTables")
-  echo "Response: $response"
+  echo "$response"
 #  if [ $response -eq 200 ]; then break; else GET_OPEN_TABLES_FAILS=$((GET_OPEN_TABLES_FAILS+1)); fi
 #  if [ $value -eq 3 ]; then exit 1; fi
 done
@@ -56,7 +56,7 @@ for value in 1 2 3
 do
   echo "Pinging /submitOrder with valid request, should return 200..."
   response=$(curl -X POST -s --header "Content-Type: text/plain" --data "body-is-ignored" "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg&bill=1.00")
-  echo "Response: $response"
+  echo "$response"
 #  if [ $response -eq 200 ]; then break; else SUBMIT_ORDER_FAILS=$((SUBMIT_ORDER_FAILS+1)); fi
 #  if [ $value -eq 3 ]; then exit 1; fi
 done
@@ -67,7 +67,7 @@ for value in 1 2 3
 do
   echo "Pinging /submitOrder with insufficient funds, should return 500..."
   response=$(curl -X POST -s --header "Content-Type: text/plain" --data "body-is-ignored" "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg&bill=100.00")
-  echo "Response: $response"
+  echo "$response"
 #  if [ $response -eq 500 ]; then break; else SUBMIT_ORDER_INSUFFICIENT_FUNDS_FAILS=$((SUBMIT_ORDER_INSUFFICIENT_FUNDS_FAILS+1)); fi
 #  if [ $value -eq 3 ]; then exit 1; fi
 done
@@ -78,7 +78,7 @@ for value in 1 2 3
 do
   echo "Pinging /submitOrder with missing param, should return 400..."
   response=$(curl -X POST -s --header "Content-Type: text/plain" --data "body-is-ignored" "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg")
-  echo "Response: $response"
+  echo "$response"
 #  if [ $response -eq 400 ]; then break; else SUBMIT_ORDER_MISSING_PARAM_FAILS=$((SUBMIT_ORDER_MISSING_PARAM_FAILS+1)); fi
 #  if [ $value -eq 3 ]; then exit 1; fi
 done
@@ -89,7 +89,7 @@ for value in 1 2 3
 do
   echo "Pinging /submitOrder with bad param, should return 400..."
   response=$(curl -X POST -s --header "Content-Type: text/plain" --data "body-is-ignored" "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg&bill=bad-param")
-  echo "Response: $response"
+  echo "$response"
 #  if [ $response -eq 400 ]; then break; else SUBMIT_ORDER_BAD_PARAM_FAILS=$((SUBMIT_ORDER_BAD_PARAM_FAILS+1)); fi
 #  if [ $value -eq 3 ]; then exit 1; fi
 done
@@ -99,5 +99,5 @@ for value in 1 2 3
 do
   echo "Pinging /bootCustomer with valid request, should return 200..."
   response=$(curl -X POST -s --header "Content-Type: text/plain" "http://$LOAD_BALANCER/RestaurantService/bootCustomer?firstName=$CUSTOMER_NAME")
-  echo "Response: $response"
+  echo "$response"
 done
