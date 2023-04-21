@@ -8,7 +8,7 @@ for value in 1 2 3
 do
   TEST_VAL=$((TEST_VAL+1))
   echo "Pinging /seatCustomer with valid request, should return 200..."
-  response=$(curl -X POST -s "http://$LOAD_BALANCER/RestaurantService/seatCustomer?firstName=$CUSTOMER_NAME&address=mainst&cash=1.23")
+  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/seatCustomer?firstName=$CUSTOMER_NAME&address=mainst&cash=1.23")
   echo $response
   if [ $response -eq 200 ]; then break; else SEAT_CUSTOMER_VALID_FAILS=$((SEAT_CUSTOMER_VALID_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
@@ -19,7 +19,7 @@ SEAT_CUSTOMER_MISSING_PARAM_FAILS=0
 for value in 1 2 3
 do
   echo "Pinging /seatCustomer with missing param, should return 400..."
-  response=$(curl -X POST -s "http://$LOAD_BALANCER/RestaurantService/seatCustomer?firstName=$CUSTOMER_NAME&address=mainst")
+  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/seatCustomer?firstName=$CUSTOMER_NAME&address=mainst")
   echo $response
   if [ $response -eq 400 ]; then break; else SEAT_CUSTOMER_MISSING_PARAM_FAILS=$((SEAT_CUSTOMER_MISSING_PARAM_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
@@ -30,7 +30,7 @@ SEAT_CUSTOMER_INVALID_PARAM_FAILS=0
 for value in 1 2 3
 do
   echo "Pinging /seatCustomer with invalid param, should return 400..."
-  response=$(curl -X POST -s "http://$LOAD_BALANCER/RestaurantService/seatCustomer?firstName=$CUSTOMER_NAME&address=mainst&cash=bad-value")
+  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/seatCustomer?firstName=$CUSTOMER_NAME&address=mainst&cash=bad-value")
   echo $response
   if [ $response -eq 400 ]; then break; else SEAT_CUSTOMER_INVALID_PARAM_FAILS=$((SEAT_CUSTOMER_INVALID_PARAM_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
@@ -42,7 +42,7 @@ GET_OPEN_TABLES_FAILS=0
 for value in 1 2 3
 do
   echo "Pinging /getOpenTables..."
-  response=$(curl -s "http://$LOAD_BALANCER/RestaurantService/getOpenTables")
+  response=$(curl -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/getOpenTables")
   echo $response
   if [ $response -eq 200 ]; then break; else GET_OPEN_TABLES_FAILS=$((GET_OPEN_TABLES_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
@@ -54,7 +54,7 @@ SUBMIT_ORDER_FAILS=0
 for value in 1 2 3
 do
   echo "Pinging /submitOrder with valid request, should return 200..."
-  response=$(curl -X POST -s "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg&bill=1.00")
+  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg&bill=1.00")
   echo $response
   if [ $response -eq 200 ]; then break; else SUBMIT_ORDER_FAILS=$((SUBMIT_ORDER_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
@@ -65,7 +65,7 @@ SUBMIT_ORDER_INSUFFICIENT_FUNDS_FAILS=0
 for value in 1 2 3
 do
   echo "Pinging /submitOrder with insufficient funds, should return 500..."
-  response=$(curl -X POST -s "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg&bill=100.00")
+  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg&bill=100.00")
   echo $response
   if [ $response -eq 500 ]; then break; else SUBMIT_ORDER_INSUFFICIENT_FUNDS_FAILS=$((SUBMIT_ORDER_INSUFFICIENT_FUNDS_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
@@ -76,7 +76,7 @@ SUBMIT_ORDER_MISSING_PARAM_FAILS=0
 for value in 1 2 3
 do
   echo "Pinging /submitOrder with missing param, should return 400..."
-  response=$(curl -X POST -s "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg")
+  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg")
   echo $response
   if [ $response -eq 400 ]; then break; else SUBMIT_ORDER_MISSING_PARAM_FAILS=$((SUBMIT_ORDER_MISSING_PARAM_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
@@ -87,7 +87,7 @@ SUBMIT_ORDER_BAD_PARAM_FAILS=0
 for value in 1 2 3
 do
   echo "Pinging /submitOrder with bad param, should return 400..."
-  response=$(curl -X POST -s "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg&bill=bad-param")
+  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg&bill=bad-param")
   echo $response
   if [ $response -eq 400 ]; then break; else SUBMIT_ORDER_BAD_PARAM_FAILS=$((SUBMIT_ORDER_BAD_PARAM_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
