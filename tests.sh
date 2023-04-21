@@ -2,7 +2,6 @@
 
 LOAD_BALANCER=$1
 CUSTOMER_NAME=$(tr -cd "[:digit:]" < /dev/urandom | head -c 6)
-echo "$CUSTOMER_NAME"
 
 SEAT_CUSTOMER_VALID_FAILS=0
 for value in 1 2 3
