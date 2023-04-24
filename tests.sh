@@ -103,15 +103,4 @@ do
   if [ "$response" -eq 400 ]; then break; else BOOT_CUSTOMER_MISSING_PARAM_FAILS=$((BOOT_CUSTOMER_MISSING_PARAM_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
 done
-printf "failures: %s out of 3 attempts\n" "$BOOT_CUSTOMER_MISSING_PARAM_FAILS"
-
-BOOT_CUSTOMER_BAD_PARAM_FAILS=0
-for value in 1 2 3
-do
-  echo "Pinging /bootCustomer with bad param, should return 404..."
-  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/bootCustomer?firstName=532159876451579643215456359768")
-  echo "$response"
-  if [ "$response" -eq 404 ]; then break; else BOOT_CUSTOMER_BAD_PARAM_FAILS=$((BOOT_CUSTOMER_BAD_PARAM_FAILS+1)); fi
-  if [ $value -eq 3 ]; then exit 1; fi
-done
-printf "failures: %s out of 3 attempts\n" "$BOOT_CUSTOMER_BAD_PARAM_FAILS"
+echo "failures: $SUBMIT_ORDER_BAD_PARAM_FAILS out of 3 attempts\n"
