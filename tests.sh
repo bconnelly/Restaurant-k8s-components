@@ -13,7 +13,7 @@ do
   if [ "$response" -eq 200 ]; then break; else SEAT_CUSTOMER_VALID_FAILS=$((SEAT_CUSTOMER_VALID_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
 done
-printf "failures: %s out of 3 attempts\n" "$SEAT_CUSTOMER_VALID_FAILS"
+printf "failures: %s out of 3 attempts\n\n" "$SEAT_CUSTOMER_VALID_FAILS"
 
 SEAT_CUSTOMER_MISSING_PARAM_FAILS=0
 for value in 1 2 3
@@ -24,7 +24,7 @@ do
   if [ "$response" -eq 400 ]; then break; else SEAT_CUSTOMER_MISSING_PARAM_FAILS=$((SEAT_CUSTOMER_MISSING_PARAM_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
 done
-printf "failures: %s out of 3 attempts\n" "$SEAT_CUSTOMER_MISSING_PARAM_FAILS"
+printf "failures: %s out of 3 attempts\n\n" "$SEAT_CUSTOMER_MISSING_PARAM_FAILS"
 
 SEAT_CUSTOMER_INVALID_PARAM_FAILS=0
 for value in 1 2 3
@@ -35,7 +35,7 @@ do
   if [ "$response" -eq 400 ]; then break; else SEAT_CUSTOMER_INVALID_PARAM_FAILS=$((SEAT_CUSTOMER_INVALID_PARAM_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
 done
-printf "failures: %s out of 3 attempts\n" "$SEAT_CUSTOMER_INVALID_PARAM_FAILS"
+printf "failures: %s out of 3 attempts\n\n" "$SEAT_CUSTOMER_INVALID_PARAM_FAILS"
 
 
 GET_OPEN_TABLES_FAILS=0
@@ -47,7 +47,7 @@ do
   if [ "$response" -eq 200 ]; then break; else GET_OPEN_TABLES_FAILS=$((GET_OPEN_TABLES_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
 done
-printf "failures: %s out of 3 attempts\n" "$GET_OPEN_TABLES_FAILS"
+printf "failures: %s out of 3 attempts\n\n" "$GET_OPEN_TABLES_FAILS"
 
 
 SUBMIT_ORDER_FAILS=0
@@ -59,7 +59,7 @@ do
   if [ "$response" -eq 200 ]; then break; else SUBMIT_ORDER_FAILS=$((SUBMIT_ORDER_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
 done
-printf "failures: %s out of 3 attempts\n" "$SUBMIT_ORDER_FAILS"
+printf "failures: %s out of 3 attempts\n\n" "$SUBMIT_ORDER_FAILS"
 
 SUBMIT_ORDER_INSUFFICIENT_FUNDS_FAILS=0
 for value in 1 2 3
@@ -70,7 +70,7 @@ do
   if [ "$response" -eq 500 ]; then break; else SUBMIT_ORDER_INSUFFICIENT_FUNDS_FAILS=$((SUBMIT_ORDER_INSUFFICIENT_FUNDS_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
 done
-printf "failures: %s out of 3 attempts\n" "$SUBMIT_ORDER_INSUFFICIENT_FUNDS_FAILS"
+printf "failures: %s out of 3 attempts\n\n" "$SUBMIT_ORDER_INSUFFICIENT_FUNDS_FAILS"
 
 SUBMIT_ORDER_MISSING_PARAM_FAILS=0
 for value in 1 2 3
@@ -81,7 +81,7 @@ do
   if [ "$response" -eq 400 ]; then break; else SUBMIT_ORDER_MISSING_PARAM_FAILS=$((SUBMIT_ORDER_MISSING_PARAM_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
 done
-printf "failures: %s out of 3 attempts\n" "$SUBMIT_ORDER_MISSING_PARAM_FAILS"
+printf "failures: %s out of 3 attempts\n\n" "$SUBMIT_ORDER_MISSING_PARAM_FAILS"
 
 SUBMIT_ORDER_BAD_PARAM_FAILS=0
 for value in 1 2 3
@@ -92,7 +92,18 @@ do
   if [ "$response" -eq 400 ]; then break; else SUBMIT_ORDER_BAD_PARAM_FAILS=$((SUBMIT_ORDER_BAD_PARAM_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
 done
-printf "failures: %s out of 3 attempts\n" "$SUBMIT_ORDER_BAD_PARAM_FAILS"
+printf "failures: %s out of 3 attempts\n\n" "$SUBMIT_ORDER_BAD_PARAM_FAILS"
+
+BOOT_CUSTOMER_VALID_FAILS=0
+for value in 1 2 3
+do
+  echo "Pinging /bootCustomer with valid request, should return 200..."
+  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/bootCustomer?firstName=$CUSTOMER_NAME")
+  echo "$response"
+  if [ "$response" -eq 200 ]; then break; else BOOT_CUSTOMER_VALID_FAILS=$((BOOT_CUSTOMER_VALID_FAILS+1)); fi
+  if [ $value -eq 3 ]; then exit 1; fi
+done
+printf "failures: %s out of 3 attempts\n" "$BOOT_CUSTOMER_VALID_FAILS"
 
 BOOT_CUSTOMER_MISSING_PARAM_FAILS=0
 for value in 1 2 3
@@ -103,4 +114,15 @@ do
   if [ "$response" -eq 400 ]; then break; else BOOT_CUSTOMER_MISSING_PARAM_FAILS=$((BOOT_CUSTOMER_MISSING_PARAM_FAILS+1)); fi
   if [ $value -eq 3 ]; then exit 1; fi
 done
-echo "failures: $SUBMIT_ORDER_BAD_PARAM_FAILS out of 3 attempts\n"
+printf "failures: %s out of 3 attempts\n\n" "$BOOT_CUSTOMER_MISSING_PARAM_FAILS"
+
+BOOT_CUSTOMER_BAD_PARAM_FAILS=0
+for value in 1 2 3
+do
+  echo "Pinging /bootCustomer with bad param, should return 404..."
+  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/bootCustomer?firstName=38417329547496137562714637257621")
+  echo "$response"
+  if [ "$response" -eq 404 ]; then break; else BOOT_CUSTOMER_BAD_PARAM_FAILS=$((BOOT_CUSTOMER_BAD_PARAM_FAILS+1)); fi
+  if [ $value -eq 3 ]; then exit 1; fi
+done
+printf "failures: %s out of 3 attempts\n" "$BOOT_CUSTOMER_BAD_PARAM_FAILS"
