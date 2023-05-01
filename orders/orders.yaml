@@ -19,7 +19,7 @@ spec:
       containers:
         - name: orders-container
           imagePullPolicy: Always
-          image: bryan949/fullstack-orders:latest
+          image: bryan949/poc-orders:latest
           ports:
             - containerPort: 80
           livenessProbe:
@@ -31,17 +31,17 @@ spec:
             - name: JDBC_DATASOURCE_ORDERS
               valueFrom:
                 configMapKeyRef:
-                  name: fullstack-config
+                  name: poc-config
                   key: JDBC_DATASOURCE_ORDERS
             - name: JDBC_USER
               valueFrom:
                 secretKeyRef:
-                  name: fullstack-secret
+                  name: poc-secret
                   key: JDBC_USER
             - name: JDBC_PASS
               valueFrom:
                 secretKeyRef:
-                  name: fullstack-secret
+                  name: poc-secret
                   key: JDBC_PASS
 ---
 apiVersion: v1
