@@ -9,5 +9,3 @@ spec:
   ports:
     - name: port
       port: 3306
-  selector:
-    app: tables
