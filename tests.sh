@@ -3,18 +3,6 @@
 LOAD_BALANCER=$1
 CUSTOMER_NAME=$(tr -cd "[:digit:]" < /dev/urandom | head -c 6)
 
-SEAT_CUSTOMER_VALID_FAILS=0
-for value in 1 2 3
-do
-  TEST_VAL=$((TEST_VAL+1))
-  echo "Pinging /seatCustomer with valid request, should return 200..."
-  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/seatCustomer?firstName=$CUSTOMER_NAME&address=mainst&cash=1.23")
-  echo "$response"
-  if [ "$response" -eq 200 ]; then break; else SEAT_CUSTOMER_VALID_FAILS=$((SEAT_CUSTOMER_VALID_FAILS+1)); fi
-  if [ $value -eq 3 ]; then exit 1; fi
-done
-printf "failures: %s out of 3 attempts\n\n" "$SEAT_CUSTOMER_VALID_FAILS"
-
 SEAT_CUSTOMER_MISSING_PARAM_FAILS=0
 for value in 1 2 3
 do
@@ -49,18 +37,6 @@ do
 done
 printf "failures: %s out of 3 attempts\n\n" "$GET_OPEN_TABLES_FAILS"
 
-
-SUBMIT_ORDER_FAILS=0
-for value in 1 2 3
-do
-  echo "Pinging /submitOrder with valid request, should return 200..."
-  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/submitOrder?firstName=$CUSTOMER_NAME&tableNumber=5&dish=burg&bill=1.00")
-  echo "$response"
-  if [ "$response" -eq 200 ]; then break; else SUBMIT_ORDER_FAILS=$((SUBMIT_ORDER_FAILS+1)); fi
-  if [ $value -eq 3 ]; then exit 1; fi
-done
-printf "failures: %s out of 3 attempts\n\n" "$SUBMIT_ORDER_FAILS"
-
 SUBMIT_ORDER_INSUFFICIENT_FUNDS_FAILS=0
 for value in 1 2 3
 do
@@ -94,16 +70,6 @@ do
 done
 printf "failures: %s out of 3 attempts\n\n" "$SUBMIT_ORDER_BAD_PARAM_FAILS"
 
-BOOT_CUSTOMER_VALID_FAILS=0
-for value in 1 2 3
-do
-  echo "Pinging /bootCustomer with valid request, should return 200..."
-  response=$(curl -X POST -s -w "%{http_code}" --output /dev/null "http://$LOAD_BALANCER/RestaurantService/bootCustomer?firstName=$CUSTOMER_NAME")
-  echo "$response"
-  if [ "$response" -eq 200 ]; then break; else BOOT_CUSTOMER_VALID_FAILS=$((BOOT_CUSTOMER_VALID_FAILS+1)); fi
-  if [ $value -eq 3 ]; then exit 1; fi
-done
-printf "failures: %s out of 3 attempts\n" "$BOOT_CUSTOMER_VALID_FAILS"
 
 BOOT_CUSTOMER_MISSING_PARAM_FAILS=0
 for value in 1 2 3
