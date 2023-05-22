@@ -32,14 +32,6 @@ for i in range(retryCount):
     if i == 2: sys.exit(1)
 
 for i in range(retryCount):
-    print("Pinging /submitOrder with insufficient funds...")
-    response = requests.post(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/submitOrder",
-                             data = {"firstName": CUSTOMER_NAME, "tableNumber": "1", "dish": "food", "bill": 100.00})
-    print(f"response: {str(response.status_code)}")
-    if response.status_code == 500: break
-    if i == 2: sys.exit(1)
-
-for i in range(retryCount):
     print("Pinging /bootCustomer that has already been booted...")
     response = requests.post(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/bootCustomer",
                              data={"firstName": CUSTOMER_NAME})
