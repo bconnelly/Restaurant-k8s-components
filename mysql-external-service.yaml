@@ -5,7 +5,7 @@ metadata:
   namespace: placeholder
 spec:
   type: ExternalName
-  externalName: fullstack-db.c9tlsge0boez.us-east-1.rds.amazonaws.com
+  externalName: poc-db.c9tlsge0boez.us-east-1.rds.amazonaws.com
   ports:
     - name: port
       port: 3306
