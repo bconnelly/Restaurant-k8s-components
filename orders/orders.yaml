@@ -28,11 +28,11 @@ spec:
                 - touch
                 - healthy
           env:
-            - name: JDBC_DATASOURCE_ORDERS
+            - name: JDBC_DATASOURCE
               valueFrom:
                 configMapKeyRef:
                   name: poc-config
-                  key: JDBC_DATASOURCE_ORDERS
+                  key: JDBC_DATASOURCE
             - name: JDBC_USER
               valueFrom:
                 secretKeyRef:
