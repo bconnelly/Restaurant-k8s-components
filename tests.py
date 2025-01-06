@@ -8,6 +8,8 @@ CUSTOMER_NAME = random.randint(0, 10000)
 
 retryCount = 3
 
+# RestaurantService endpoints that don't change data
+
 for i in range(retryCount):
     print("Pinging /seatCustomer with missing param...")
     response = requests.post(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/seatCustomer",
