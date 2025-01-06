@@ -48,6 +48,11 @@ spec:
                 configMapKeyRef:
                   name: restaurant-config
                   key: CUSTOMERS_SEAT
+            - name: CUSTOMERS_SEAT_GROUP
+              valueFrom:
+                configMapKeyRef:
+                  name: restaurant-config
+                  key: CUSTOMERS_SEAT_GROUP
             - name: CUSTOMERS_BOOT
               valueFrom:
                 configMapKeyRef:
