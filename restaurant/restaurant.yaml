@@ -38,6 +38,11 @@ spec:
                 configMapKeyRef:
                   name: restaurant-config
                   key: CUSTOMERS_GET_BY_NAME
+            - name: CUSTOMERS_GET_BY_TABLE
+              valueFrom:
+                configMapKeyRef:
+                  name: restaurant-config
+                  key: CUSTOMERS_GET_BY_TABLE
             - name: CUSTOMERS_EXISTS
               valueFrom:
                 configMapKeyRef:
