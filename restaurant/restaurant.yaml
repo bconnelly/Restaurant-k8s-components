@@ -63,6 +63,11 @@ spec:
                 configMapKeyRef:
                   name: restaurant-config
                   key: ORDERS_SUBMIT
+            - name: ORDERS_SERVE
+              valueFrom:
+                configMapKeyRef:
+                  name: restaurant-config
+                  key: ORDERS_SERVE
             - name: TABLES_GET_ALL
               valueFrom:
                 configMapKeyRef:

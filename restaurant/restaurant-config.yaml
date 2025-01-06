@@ -11,6 +11,7 @@ data:
   CUSTOMERS_SEAT_GROUP: /insertGroup
   CUSTOMERS_BOOT: /bootCustomer
   ORDERS_SUBMIT: /insertOrder
+  ORDERS_SERVE: /serveOrder
   TABLES_GET_ALL: /getAllTables
   CUSTOMERS_SERVICE_PACKAGE_NAME: CustomersService
   ORDERS_SERVICE_PACKAGE_NAME: OrdersService
