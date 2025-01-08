@@ -13,7 +13,7 @@ retryCount = 3
 for i in range(retryCount):
     print("Pinging /seatCustomer with missing param...")
     response = requests.post(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/seatCustomer",
-                             json = {"firstName": CUSTOMER_NAME, "address": "someaddress"})
+                             params = {"firstName": CUSTOMER_NAME, "address": "someaddress"})
     print(f"response: {str(response.status_code)}")
     if response.status_code == 400: break
     if i == 2: sys.exit(1)
@@ -21,7 +21,7 @@ for i in range(retryCount):
 for i in range(retryCount):
     print("Pinging /seatCustomer with invalid param...")
     response = requests.post(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/seatCustomer",
-                             json = {"firstName": CUSTOMER_NAME, "address": "someaddress", "cash": "bad-value"})
+                             params = {"firstName": CUSTOMER_NAME, "address": "someaddress", "cash": "bad-value"})
     print(f"response: {str(response.status_code)}")
     if response.status_code == 400: break
     if i == 2: sys.exit(1)
@@ -36,7 +36,7 @@ for i in range(retryCount):
 for i in range(retryCount):
     print("Pinging /bootCustomer that has already been booted...")
     response = requests.post(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/bootCustomer",
-                             json={"firstName": CUSTOMER_NAME})
+                             params={"firstName": CUSTOMER_NAME})
     print(f"response: {str(response.status_code)}")
     if response.status_code == 404: break
     if i == 2: sys.exit(1)
