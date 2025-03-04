@@ -26,19 +26,19 @@ class RequestType(Enum):
     DELETE = 3
 
 
-def sendRequest(params, endpoint, reqType, expectedCode):
+def sendRequest(endpoint, reqType, expectedCode, params=None, data=None):
     print(CUSTOMER_NAME)
     for i in range(retryCount):
         logging.debug(f"Sending {reqType} request to {endpoint} with params {params}")
 
         if reqType == RequestType.GET:
-            response = requests.get(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params)
+            response = requests.get(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params, data=data)
         elif reqType == RequestType.POST:
-            response = requests.post(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params)
+            response = requests.post(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params, data=data)
         elif reqType == RequestType.PUT:
-            response = requests.put(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params)
+            response = requests.put(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params, data=data)
         elif reqType == RequestType.DELETE:
-            response = requests.delete(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params)
+            response = requests.delete(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params, data=data)
         else:
             raise Exception(f"Request type {reqType} not supported")
 
@@ -50,14 +50,14 @@ def sendRequest(params, endpoint, reqType, expectedCode):
 
 
 def main():
-    # /seatCustomer with missing param
-    sendRequest({"firstName": CUSTOMER_NAME, "address": "someaddress"}, "seatCustomer", RequestType.POST, 400)
-    # /seatCustomer with bad param value
-    sendRequest({"firstName": CUSTOMER_NAME, "address": "someaddress", "cash": "bad-value"}, "seatCustomer", RequestType.POST, 400)
-    # /getOpenTables with valid request
-    sendRequest(None, "getOpenTables", RequestType.GET, 200)
-    # /bootCustomer with customer not in restaurant
-    sendRequest({"firstName": CUSTOMER_NAME}, "bootCustomer", RequestType.POST, 404)
+    # seat customer with missing param
+    sendRequest("customer", RequestType.POST, 400, data={"firstName": CUSTOMER_NAME, "address": "someaddress"})
+    # seat customer with bad param value
+    sendRequest("customer", RequestType.POST, 400, data={"firstName": CUSTOMER_NAME, "address": "32someaddress", "cash": "bad-value"})
+    # open tables with valid request
+    sendRequest("tables/open", RequestType.GET, 200)
+    # boot customer with customer not in restaurant
+    sendRequest("customer", RequestType.POST, 404, {"firstName": CUSTOMER_NAME})
     time.sleep(5)
 
 
