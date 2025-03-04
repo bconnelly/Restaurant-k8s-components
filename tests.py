@@ -27,18 +27,18 @@ class RequestType(Enum):
 
 
 def sendRequest(endpoint, reqType, expectedCode, params=None, data=None):
-    print(CUSTOMER_NAME)
+    headers = {"Content-Type": "application/json"}
     for i in range(retryCount):
         logging.debug(f"Sending {reqType} request to {endpoint} with params {params}")
 
         if reqType == RequestType.GET:
-            response = requests.get(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params, data=data)
+            response = requests.get(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params, data=data, headers=headers)
         elif reqType == RequestType.POST:
-            response = requests.post(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params, data=data)
+            response = requests.post(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params, data=data, headers=headers)
         elif reqType == RequestType.PUT:
-            response = requests.put(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params, data=data)
+            response = requests.put(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params, data=data, headers=headers)
         elif reqType == RequestType.DELETE:
-            response = requests.delete(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params, data=data)
+            response = requests.delete(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params, data=data, headers=headers)
         else:
             raise Exception(f"Request type {reqType} not supported")
 
@@ -51,14 +51,13 @@ def sendRequest(endpoint, reqType, expectedCode, params=None, data=None):
 
 def main():
     # seat customer with missing param
-    sendRequest("customer", RequestType.POST, 400, data={"firstName": CUSTOMER_NAME, "address": "someaddress"})
+    sendRequest("customer", RequestType.POST, 400, data={"firstName": CUSTOMER_NAME, "address": 'someaddress'})
     # seat customer with bad param value
     sendRequest("customer", RequestType.POST, 400, data={"firstName": CUSTOMER_NAME, "address": "32someaddress", "cash": "bad-value"})
     # open tables with valid request
     sendRequest("tables/open", RequestType.GET, 200)
     # boot customer with customer not in restaurant
-    sendRequest("customer", RequestType.POST, 404, {"firstName": CUSTOMER_NAME})
-    time.sleep(5)
+    sendRequest("customer", RequestType.DELETE, 404, {"firstName": CUSTOMER_NAME})
 
 
 if __name__ == "__main__":
