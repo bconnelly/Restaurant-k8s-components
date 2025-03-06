@@ -6,6 +6,7 @@ metadata:
 data:
   CUSTOMERS_GET_ALL: /customer/all
   CUSTOMERS_GET_BY_NAME: /customer/firstName
+  CUSTOMERS_GET_BY_TABLE: /customer/table
   CUSTOMERS_EXISTS: /customer/exists
   CUSTOMERS_SEAT: /customer
   CUSTOMERS_SEAT_GROUP: /customer/group
