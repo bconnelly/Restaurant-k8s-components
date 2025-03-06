@@ -4,16 +4,15 @@ metadata:
   name: restaurant-config
   namespace: placeholder
 data:
-  CUSTOMERS_GET_ALL: /getAllCustomers
-  CUSTOMERS_GET_BY_NAME: /getCustomerByFirstName
-  CUSTOMERS_GET_BY_TABLE: /getCustomersAtTable
-  CUSTOMERS_EXISTS: /customerExists
-  CUSTOMERS_SEAT: /insertCustomer
-  CUSTOMERS_SEAT_GROUP: /insertGroup
-  CUSTOMERS_BOOT: /bootCustomer
-  ORDERS_SUBMIT: /insertOrder
-  ORDERS_SERVE: /serveOrder
-  TABLES_GET_ALL: /getAllTables
+  CUSTOMERS_GET_ALL: /customer/all
+  CUSTOMERS_GET_BY_NAME: /customer/firstName
+  CUSTOMERS_EXISTS: /customer/exists
+  CUSTOMERS_SEAT: /customer
+  CUSTOMERS_SEAT_GROUP: /customer/group
+  CUSTOMERS_BOOT: /customer
+  ORDERS_SUBMIT: /order/submit
+  ORDERS_SERVE: /order/serve
+  TABLES_GET_ALL: /table/all
   CUSTOMERS_SERVICE_PACKAGE_NAME: CustomersService
   ORDERS_SERVICE_PACKAGE_NAME: OrdersService
   TABLES_SERVICE_PACKAGE_NAME: TablesService
