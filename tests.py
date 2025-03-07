@@ -29,7 +29,7 @@ class RequestType(Enum):
 def sendRequest(endpoint, reqType, expectedCode, params=None, data=None):
     headers = {"Content-Type": "application/json"}
     for i in range(retryCount):
-        logging.debug(f"Sending {reqType} request to {endpoint} with params {params}")
+        logging.debug(f"Sending {reqType} request to http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint} with params {params} and data {data}")
 
         if reqType == RequestType.GET:
             response = requests.get(f"http://{LOAD_BALANCER}/{SERVICE_PATH}/{endpoint}", params=params, data=data, headers=headers)
@@ -61,4 +61,5 @@ def main():
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
     main()
