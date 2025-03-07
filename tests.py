@@ -6,7 +6,6 @@ import uuid
 import requests
 import random
 import sys
-import logging
 import secrets
 from enum import Enum
 
@@ -55,7 +54,7 @@ def main():
     # seat customer with bad param value
     sendRequest("customer", RequestType.POST, 400, data={"firstName": CUSTOMER_NAME, "address": "32someaddress", "cash": "bad-value"})
     # open tables with valid request
-    sendRequest("tables/open", RequestType.GET, 200)
+    sendRequest("table/open", RequestType.GET, 200)
     # boot customer with customer not in restaurant
     sendRequest("customer", RequestType.DELETE, 404, {"firstName": CUSTOMER_NAME})
 
