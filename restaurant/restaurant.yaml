@@ -122,6 +122,6 @@ spec:
       #service's port that pods use to interact
       port: 80
       #pod port
-      targetPort: 80
+      targetPort: 8080
       #port allowing access to service (used by minikube)
 #      nodePort: 30300
