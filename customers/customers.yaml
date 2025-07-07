@@ -21,12 +21,13 @@ spec:
           imagePullPolicy: Always
           image: bryan949/poc-customers:latest
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           livenessProbe:
-            exec:
-              command:
-                - touch
-                - healthy
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 30
           env:
             - name: JDBC_DATASOURCE
               valueFrom:
@@ -60,4 +61,4 @@ spec:
       #service's port that pods use to interact
       port: 80
       #pod port
-      targetPort: 80
+      targetPort: 8080
