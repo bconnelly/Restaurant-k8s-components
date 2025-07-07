@@ -93,6 +93,16 @@ spec:
                 configMapKeyRef:
                   name: restaurant-config
                   key: TABLES_SERVICE_PACKAGE_NAME
+            - name: TOMCAT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: poc-secret
+                  key: TOMCAT_USER
+            - name: TOMCAT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: poc-secret
+                  key: TOMCAT_PASS
 ---
 apiVersion: v1
 kind: Service
